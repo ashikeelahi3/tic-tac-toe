@@ -33,7 +33,7 @@ function OnlineBoard({ mode, roomCode: initialRoomCode, onBackToMenu, initialGam
       setIsMyTurn(initialGameData.myTurn)
       setGameStatus('Match found! Game started!')
     } else {
-      newSocket = io(process.env.NODE_ENV === 'production' ? 'https://YOUR-ACTUAL-RAILWAY-URL.railway.app' : 'http://localhost:3000')
+      newSocket = io('http://localhost:3000')
       setSocket(newSocket)
     }
 

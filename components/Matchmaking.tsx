@@ -14,7 +14,7 @@ function Matchmaking({ onBackToMenu }: MatchmakingProps) {
   const [gameData, setGameData] = useState<any>(null)
 
   useEffect(() => {
-    const newSocket = io(process.env.NODE_ENV === 'production' ? 'https://YOUR-ACTUAL-RAILWAY-URL.railway.app' : 'http://localhost:3000')
+    const newSocket = io('http://localhost:3000')
     setSocket(newSocket)
 
     newSocket.on('waiting-for-match', () => {
