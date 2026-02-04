@@ -33,7 +33,7 @@ function OnlineBoard({ mode, roomCode: initialRoomCode, onBackToMenu, initialGam
       setIsMyTurn(initialGameData.myTurn)
       setGameStatus('Match found! Game started!')
     } else {
-      newSocket = io()
+      newSocket = io('http://localhost:3000')
       setSocket(newSocket)
     }
 
@@ -55,21 +55,27 @@ function OnlineBoard({ mode, roomCode: initialRoomCode, onBackToMenu, initialGam
     newSocket.on('game-start', ({ board, currentPlayer, playerSymbols }) => {
       setBoard(board)
       setCurrentPlayer(currentPlayer)
-      setPlayerSymbol(playerSymbols[newSocket.id])
-      setIsMyTurn(currentPlayer === newSocket.id)
+      if (newSocket.id) {
+        setPlayerSymbol(playerSymbols[newSocket.id])
+        setIsMyTurn(currentPlayer === newSocket.id)
+      }
       setGameStatus('Game started!')
     })
 
     newSocket.on('game-update', ({ board, currentPlayer }) => {
       setBoard(board)
       setCurrentPlayer(currentPlayer)
-      setIsMyTurn(currentPlayer === newSocket.id)
+      if (newSocket.id) {
+        setIsMyTurn(currentPlayer === newSocket.id)
+      }
     })
 
     newSocket.on('game-reset', ({ board, currentPlayer }) => {
       setBoard(board)
       setCurrentPlayer(currentPlayer)
-      setIsMyTurn(currentPlayer === newSocket.id)
+      if (newSocket.id) {
+        setIsMyTurn(currentPlayer === newSocket.id)
+      }
       setGameStatus('Game reset!')
     })
 

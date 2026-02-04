@@ -14,7 +14,7 @@ function Matchmaking({ onBackToMenu }: MatchmakingProps) {
   const [gameData, setGameData] = useState<any>(null)
 
   useEffect(() => {
-    const newSocket = io()
+    const newSocket = io('http://localhost:3000')
     setSocket(newSocket)
 
     newSocket.on('waiting-for-match', () => {
